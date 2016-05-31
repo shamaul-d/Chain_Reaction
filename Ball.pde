@@ -84,6 +84,7 @@ class Ball {
      }
      else{
         state = SHRINKING;
+        System.out.println(state);
      }
    }
    else if (state == SHRINKING) {
@@ -95,7 +96,6 @@ class Ball {
      }
    }
    else {
-
    }
  }
 
