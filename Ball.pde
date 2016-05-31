@@ -22,7 +22,7 @@ class Ball {
     float b = random(256);
     c = color( r, g, b );
 
-    rad = 10;
+    rad = 30;
 
     x = random( (width - r) + r/2 );
     y = random( (height - r) + r/2 );
@@ -42,29 +42,13 @@ class Ball {
 
 
  boolean isTouching( Ball other ) {
-  if (other.x - other.dx < this.x + this.dx) {
-    if (other.y - other.dy < this.y + this.dy) {
+  if (sqrt(sq(other.x-this.x)+sq(other.y-this.y)) < rad) {
        return true;
-    }
-    if (other.y + other.dy > this.y - this.dy){
-      return true;
-    }
-    else {
-     return false;
-    }
   }
-    else {
-      if (other.y - other.dy < this.y + this.dy) {
-         return true;
-      }
-      if (other.y + other.dy > this.y - this.dy){
-        return true;
-      }
-      else {
-       return false;
-      }
-    }
+  else {
+    return false;
   }
+ }
  void bounce() {
   if (x > width) {
     dx = -dx;
@@ -93,12 +77,22 @@ class Ball {
      move();
    }
    else if (state == GROWING) {
-
-     state = SHRINKING;
+     dx = 0;
+     dy = 0;
+     if(rad < 100){
+        rad++;
+     }
+     else{
+        state = SHRINKING;
+     }
    }
    else if (state == SHRINKING) {
-
-     state = DEAD;
+     if(rad > 0){
+          rad--;
+     }
+     else{
+        state = DEAD;
+     }
    }
    else {
 
